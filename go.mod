@@ -1,4 +1,4 @@
-module github.com/ipfs/ipfs-thesis-bitswap
+module github.com/Genon2/ipfs-thesis-bitswap
 
 require (
 	github.com/benbjohnson/clock v1.1.0
