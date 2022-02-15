@@ -3,7 +3,7 @@ package network
 import (
 	"testing"
 
-	"github.com/ipfs/go-bitswap/internal/testutil"
+	"github.com/Genon2/ipfs-thesis-bitswap/internal/testutil"
 	"github.com/libp2p/go-libp2p-core/peer"
 )
 

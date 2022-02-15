@@ -3,7 +3,7 @@ package session
 import (
 	"testing"
 
-	"github.com/ipfs/go-bitswap/internal/testutil"
+	"github.com/Genon2/ipfs-thesis-bitswap/internal/testutil"
 	cid "github.com/ipfs/go-cid"
 )
 

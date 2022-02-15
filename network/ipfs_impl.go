@@ -8,7 +8,7 @@ import (
 	"sync/atomic"
 	"time"
 
-	bsmsg "github.com/ipfs/go-bitswap/message"
+	bsmsg "github.com/Genon2/ipfs-thesis-bitswap/message"
 
 	cid "github.com/ipfs/go-cid"
 	logging "github.com/ipfs/go-log"

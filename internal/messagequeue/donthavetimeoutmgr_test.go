@@ -7,8 +7,8 @@ import (
 	"testing"
 	"time"
 
+	"github.com/Genon2/ipfs-thesis-bitswap/internal/testutil"
 	"github.com/benbjohnson/clock"
-	"github.com/ipfs/go-bitswap/internal/testutil"
 	cid "github.com/ipfs/go-cid"
 	"github.com/libp2p/go-libp2p/p2p/protocol/ping"
 )

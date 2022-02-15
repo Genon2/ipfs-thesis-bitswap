@@ -8,10 +8,10 @@ import (
 	cid "github.com/ipfs/go-cid"
 	delay "github.com/ipfs/go-ipfs-delay"
 
-	bsbpm "github.com/ipfs/go-bitswap/internal/blockpresencemanager"
-	notifications "github.com/ipfs/go-bitswap/internal/notifications"
-	bssession "github.com/ipfs/go-bitswap/internal/session"
-	bssim "github.com/ipfs/go-bitswap/internal/sessioninterestmanager"
+	bsbpm "github.com/Genon2/ipfs-thesis-bitswap/internal/blockpresencemanager"
+	notifications "github.com/Genon2/ipfs-thesis-bitswap/internal/notifications"
+	bssession "github.com/Genon2/ipfs-thesis-bitswap/internal/session"
+	bssim "github.com/Genon2/ipfs-thesis-bitswap/internal/sessioninterestmanager"
 	exchange "github.com/ipfs/go-ipfs-exchange-interface"
 	peer "github.com/libp2p/go-libp2p-core/peer"
 )

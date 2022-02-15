@@ -3,7 +3,7 @@ package wantlist
 import (
 	"testing"
 
-	pb "github.com/ipfs/go-bitswap/message/pb"
+	pb "github.com/Genon2/ipfs-thesis-bitswap/message/pb"
 	cid "github.com/ipfs/go-cid"
 	"github.com/stretchr/testify/require"
 )

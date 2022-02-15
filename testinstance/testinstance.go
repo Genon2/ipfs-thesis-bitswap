@@ -4,9 +4,9 @@ import (
 	"context"
 	"time"
 
+	bsnet "github.com/Genon2/ipfs-thesis-bitswap/network"
+	tn "github.com/Genon2/ipfs-thesis-bitswap/testnet"
 	bitswap "github.com/ipfs/go-bitswap"
-	bsnet "github.com/ipfs/go-bitswap/network"
-	tn "github.com/ipfs/go-bitswap/testnet"
 	ds "github.com/ipfs/go-datastore"
 	delayed "github.com/ipfs/go-datastore/delayed"
 	ds_sync "github.com/ipfs/go-datastore/sync"

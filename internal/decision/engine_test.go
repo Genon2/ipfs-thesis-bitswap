@@ -10,11 +10,11 @@ import (
 	"testing"
 	"time"
 
+	"github.com/Genon2/ipfs-thesis-bitswap/internal/defaults"
+	"github.com/Genon2/ipfs-thesis-bitswap/internal/testutil"
+	message "github.com/Genon2/ipfs-thesis-bitswap/message"
+	pb "github.com/Genon2/ipfs-thesis-bitswap/message/pb"
 	"github.com/benbjohnson/clock"
-	"github.com/ipfs/go-bitswap/internal/defaults"
-	"github.com/ipfs/go-bitswap/internal/testutil"
-	message "github.com/ipfs/go-bitswap/message"
-	pb "github.com/ipfs/go-bitswap/message/pb"
 	"github.com/ipfs/go-metrics-interface"
 
 	blocks "github.com/ipfs/go-block-format"

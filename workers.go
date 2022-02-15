@@ -5,9 +5,9 @@ import (
 	"fmt"
 	"time"
 
-	engine "github.com/ipfs/go-bitswap/internal/decision"
-	"github.com/ipfs/go-bitswap/internal/defaults"
-	pb "github.com/ipfs/go-bitswap/message/pb"
+	engine "github.com/Genon2/ipfs-thesis-bitswap/internal/decision"
+	"github.com/Genon2/ipfs-thesis-bitswap/internal/defaults"
+	pb "github.com/Genon2/ipfs-thesis-bitswap/message/pb"
 	cid "github.com/ipfs/go-cid"
 	process "github.com/jbenet/goprocess"
 	procctx "github.com/jbenet/goprocess/context"
