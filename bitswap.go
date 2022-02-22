@@ -562,7 +562,7 @@ func (bs *Bitswap) ReceiveMessage(ctx context.Context, p peer.ID, incoming bsmsg
 		for _, b := range iblocks {
 			log.Debugf("[recv] block; cid=%s, peer=%s", b.Cid(), p)
 			fmt.Println("We have a message from Go-Bitswap:")
-			fmt.Printf("Received CID=%T, peer=%T\n", b.Cid(), p)
+			fmt.Printf("Received CID=%T, peer=%T\n", b.Cid().String(), p.String())
 		}
 	}
 
