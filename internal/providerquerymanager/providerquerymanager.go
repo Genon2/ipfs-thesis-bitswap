@@ -233,7 +233,7 @@ func (pqm *ProviderQueryManager) findProviderWorker() {
 			pqm.timeoutMutex.RUnlock()
 			providers := pqm.network.FindProvidersAsync(findProviderCtx, k, maxProviders)
 
-			fmt.Printf("Making a request to the dht for CID %T\n", k.String())
+			fmt.Printf("Making a request to the dht for CID %s\n", k.String())
 
 			wg := &sync.WaitGroup{}
 			for p := range providers {
