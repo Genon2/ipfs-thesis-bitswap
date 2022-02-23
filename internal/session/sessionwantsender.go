@@ -474,7 +474,6 @@ func (sws *sessionWantSender) processUpdates(updates []update) []cid.Cid {
 func (sws *sessionWantSender) checkForExhaustedWants(dontHaves []cid.Cid, newlyUnavailable []peer.ID) {
 	// If there are no new DONT_HAVEs, and no peers became unavailable, then
 	// we don't need to check for exhausted wants
-	fmt.Printf("[%+v] All peers sent DON'T HAVE...\n", dontHaves)
 	if len(dontHaves) == 0 && len(newlyUnavailable) == 0 {
 		return
 	}
@@ -513,6 +512,7 @@ func (sws *sessionWantSender) processExhaustedWants(exhausted []cid.Cid) {
 	newlyExhausted := sws.newlyExhausted(exhausted)
 	if len(newlyExhausted) > 0 {
 		// Appel session.go la fonction qui réalise un opBroadcast afin d'appeler AsyncProvider()
+		fmt.Printf("[%+v] All peers sent DON'T HAVE...\n", exhausted)
 		sws.onPeersExhausted(newlyExhausted)
 	}
 	// PRINT ICI POUR BITSWAP si on veut signaler pas de DHT mais on n'a pas les CID
