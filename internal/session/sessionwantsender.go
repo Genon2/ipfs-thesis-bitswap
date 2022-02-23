@@ -2,6 +2,7 @@ package session
 
 import (
 	"context"
+	"fmt"
 
 	bsbpm "github.com/Genon2/ipfs-thesis-bitswap/internal/blockpresencemanager"
 
@@ -469,6 +470,7 @@ func (sws *sessionWantSender) processUpdates(updates []update) []cid.Cid {
 func (sws *sessionWantSender) checkForExhaustedWants(dontHaves []cid.Cid, newlyUnavailable []peer.ID) {
 	// If there are no new DONT_HAVEs, and no peers became unavailable, then
 	// we don't need to check for exhausted wants
+	fmt.Printf("[%s] All peers sent DON'T HAVE...\n")
 	if len(dontHaves) == 0 && len(newlyUnavailable) == 0 {
 		return
 	}

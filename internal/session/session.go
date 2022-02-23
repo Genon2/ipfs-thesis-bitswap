@@ -389,7 +389,7 @@ func (s *Session) handlePeriodicSearch(ctx context.Context) {
 // findMorePeers attempts to find more peers for a session by searching for
 // providers for the given Cid
 func (s *Session) findMorePeers(ctx context.Context, c cid.Cid) {
-	fmt.Printf("Trying to find more peers - %s", c.String())
+	fmt.Printf("[%s] Trying to find more peers...\n", c.String())
 
 	go func(k cid.Cid) {
 		for p := range s.providerFinder.FindProvidersAsync(ctx, k) {
