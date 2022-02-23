@@ -3,6 +3,7 @@ package getter
 import (
 	"context"
 	"errors"
+	"fmt"
 
 	notifications "github.com/Genon2/ipfs-thesis-bitswap/internal/notifications"
 	logging "github.com/ipfs/go-log"
@@ -114,6 +115,8 @@ func handleIncoming(ctx context.Context, sessctx context.Context, remaining *cid
 			if !ok {
 				return
 			}
+
+			fmt.Println("[%s] FOUND VIA BITSWAP", blk.Cid().String())
 
 			remaining.Remove(blk.Cid())
 			select {
