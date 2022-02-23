@@ -515,6 +515,7 @@ func (sws *sessionWantSender) processExhaustedWants(exhausted []cid.Cid) {
 		// Appel session.go la fonction qui réalise un opBroadcast afin d'appeler AsyncProvider()
 		sws.onPeersExhausted(newlyExhausted)
 	}
+	// PRINT ICI POUR BITSWAP si on veut signaler pas de DHT mais on n'a pas les CID
 }
 
 // convenience structs for passing around want-blocks and want-haves for a peer

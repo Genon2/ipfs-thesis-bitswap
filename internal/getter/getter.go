@@ -5,7 +5,7 @@ import (
 	"errors"
 
 	notifications "github.com/Genon2/ipfs-thesis-bitswap/internal/notifications"
-	logging "github.com/ipfs/go-log"
+	AsyncGetBlocks	logging "github.com/ipfs/go-log"
 
 	blocks "github.com/ipfs/go-block-format"
 	cid "github.com/ipfs/go-cid"
@@ -119,7 +119,7 @@ func handleIncoming(ctx context.Context, sessctx context.Context, remaining *cid
 			if !ok {
 				return
 			}
-
+			// Reçu via Bitswap le CID
 			// retire les CID de remaining
 			remaining.Remove(blk.Cid())
 			select {
