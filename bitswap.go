@@ -440,6 +440,9 @@ func (bs *Bitswap) LedgerForPeer(p peer.ID) *decision.Receipt {
 // NB: Your request remains open until the context expires. To conserve
 // resources, provide a context with a reasonably short deadline (ie. not one
 // that lasts throughout the lifetime of the server)
+
+// Appelé dans un autre github (blockservice, fichier blockservice.go, fct getBlock) pour cmd/get
+// crée une nouvelle session et réalise une nouvelle requête pour avoir les blocks. Une session a son propre ID et il augmente par nouvelle session.
 func (bs *Bitswap) GetBlocks(ctx context.Context, keys []cid.Cid) (<-chan blocks.Block, error) {
 	session := bs.sm.NewSession(ctx, bs.provSearchDelay, bs.rebroadcastDelay)
 	return session.GetBlocks(ctx, keys)
