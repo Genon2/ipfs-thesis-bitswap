@@ -141,7 +141,7 @@ func New(
 	sm SessionManager,
 	id uint64,
 	sprm SessionPeerManager,
-	providerFinder ProviderFinder,
+	providerFinder ProviderFinder, //pqm
 	sim *bssim.SessionInterestManager,
 	pm PeerManager,
 	bpm *bsbpm.BlockPresenceManager,
@@ -236,6 +236,9 @@ func (s *Session) GetBlock(parent context.Context, k cid.Cid) (blocks.Block, err
 // GetBlocks fetches a set of blocks within the context of this session and
 // returns a channel that found blocks will be returned on. No order is
 // guaranteed on the returned blocks.
+// 
+// Appeler depuis bitswap.go fct : GetBlocks
+// Lance le AsyncGetBlocks de internal/getter/getter.go
 func (s *Session) GetBlocks(ctx context.Context, keys []cid.Cid) (<-chan blocks.Block, error) {
 	ctx = logging.ContextWithLoggable(ctx, s.uuid)
 
@@ -273,6 +276,7 @@ func (s *Session) onWantsSent(p peer.ID, wantBlocks []cid.Cid, wantHaves []cid.C
 // onPeersExhausted is called when all available peers have sent DONT_HAVE for
 // a set of cids (or all peers become unavailable)
 func (s *Session) onPeersExhausted(ks []cid.Cid) {
+	// Envoie un message avec opBroadcast quand on cherche des peers
 	s.nonBlockingEnqueue(op{op: opBroadcast, keys: ks})
 }
 
@@ -294,6 +298,8 @@ func (s *Session) nonBlockingEnqueue(o op) {
 
 // Session run loop -- everything in this function should not be called
 // outside of this loop
+
+// Reçoit les messages de incoming
 func (s *Session) run(ctx context.Context) {
 	go s.sws.Run()
 
@@ -386,12 +392,14 @@ func (s *Session) handlePeriodicSearch(ctx context.Context) {
 	s.periodicSearchTimer.Reset(s.periodicSearchDelay.NextWaitTime())
 }
 
+// Recherche plus de peers lorsqu'on a reçu un message opBroadcast
 // findMorePeers attempts to find more peers for a session by searching for
 // providers for the given Cid
 func (s *Session) findMorePeers(ctx context.Context, c cid.Cid) {
 	fmt.Printf("[%s] Trying to find more peers...\n", c.String())
 
 	go func(k cid.Cid) {
+		// Appel à la DHT
 		for p := range s.providerFinder.FindProvidersAsync(ctx, k) {
 			// When a provider indicates that it has a cid, it's equivalent to
 			// the providing peer sending a HAVE

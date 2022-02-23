@@ -156,6 +156,7 @@ func (sws *sessionWantSender) Cancel(ks []cid.Cid) {
 	if len(ks) == 0 {
 		return
 	}
+	// On n'a pas reçu de don't have et on informe qu'on ne l'a pas reçu
 	sws.addChange(change{cancel: ks})
 }
 
@@ -186,6 +187,7 @@ func (sws *sessionWantSender) Run() {
 	for {
 		select {
 		case ch := <-sws.changes:
+			// Reçoit un Don't Have
 			sws.onChange([]change{ch})
 		case <-sws.ctx.Done():
 			// Unregister the session with the PeerManager
@@ -245,6 +247,7 @@ func (sws *sessionWantSender) collectChanges(changes []change) []change {
 	return changes
 }
 
+// Appeller lorsqu'on reçoit DON'T HAVE
 // onChange processes the next set of changes
 func (sws *sessionWantSender) onChange(changes []change) {
 	// Several changes may have been recorded since the last time we checked,
@@ -465,6 +468,7 @@ func (sws *sessionWantSender) processUpdates(updates []update) []cid.Cid {
 	return dontHaves.Keys()
 }
 
+// Vérifie si on doit pas faire de la DHT
 // checkForExhaustedWants checks if there are any wants for which all peers
 // have sent a DONT_HAVE. We call these "exhausted" wants.
 func (sws *sessionWantSender) checkForExhaustedWants(dontHaves []cid.Cid, newlyUnavailable []peer.ID) {
@@ -508,8 +512,10 @@ func (sws *sessionWantSender) checkForExhaustedWants(dontHaves []cid.Cid, newlyU
 func (sws *sessionWantSender) processExhaustedWants(exhausted []cid.Cid) {
 	newlyExhausted := sws.newlyExhausted(exhausted)
 	if len(newlyExhausted) > 0 {
+		// Appel session.go la fonction qui réalise un opBroadcast afin d'appeler AsyncProvider()
 		sws.onPeersExhausted(newlyExhausted)
 	}
+	// PRINT ICI POUR BITSWAP si on veut signaler pas de DHT mais on n'a pas les CID
 }
 
 // convenience structs for passing around want-blocks and want-haves for a peer

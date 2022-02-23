@@ -6,7 +6,7 @@ import (
 	"fmt"
 
 	notifications "github.com/Genon2/ipfs-thesis-bitswap/internal/notifications"
-	logging "github.com/ipfs/go-log"
+	AsyncGetBlocks	logging "github.com/ipfs/go-log"
 
 	blocks "github.com/ipfs/go-block-format"
 	cid "github.com/ipfs/go-cid"
@@ -75,6 +75,7 @@ func AsyncGetBlocks(ctx context.Context, sessctx context.Context, keys []cid.Cid
 	}
 
 	// Use a PubSub notifier to listen for incoming blocks for each key
+	// Crée une liste
 	remaining := cid.NewSet()
 	promise := notif.Subscribe(ctx, keys...)
 	for _, k := range keys {
@@ -83,8 +84,10 @@ func AsyncGetBlocks(ctx context.Context, sessctx context.Context, keys []cid.Cid
 	}
 
 	// Send the want request for the keys to the network
+	// Avertit les Node bitswap
 	want(ctx, keys)
 
+	// Crée un channel de sortie et on reçoit les valeurs depuis handleIncoming
 	out := make(chan blocks.Block)
 	go handleIncoming(ctx, sessctx, remaining, promise, out, cwants)
 	return out, nil
@@ -104,11 +107,13 @@ func handleIncoming(ctx context.Context, sessctx context.Context, remaining *cid
 		cancel()
 		close(out)
 		// can't just defer this call on its own, arguments are resolved *when* the defer is created
+		// Cancel les CID jamais reçu par Bitswap et applique la fonction de internal/session/session.go
 		cfun(remaining.Keys())
 	}()
 
 	for {
 		select {
+		// blk -> reçoit les données via le stream "in"
 		case blk, ok := <-in:
 			// If the channel is closed, we're done (note that PubSub closes
 			// the channel once all the keys have been received)
@@ -118,6 +123,8 @@ func handleIncoming(ctx context.Context, sessctx context.Context, remaining *cid
 
 			fmt.Println("[%s] FOUND VIA BITSWAP", blk.Cid().String())
 
+			// Reçu via Bitswap le CID
+			// retire les CID de remaining
 			remaining.Remove(blk.Cid())
 			select {
 			case out <- blk:

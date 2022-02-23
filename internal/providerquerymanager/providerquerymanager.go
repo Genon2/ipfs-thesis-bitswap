@@ -216,6 +216,7 @@ func (pqm *ProviderQueryManager) cancelProviderRequest(k cid.Cid, incomingProvid
 	}
 }
 
+// DHT ici !!!!
 func (pqm *ProviderQueryManager) findProviderWorker() {
 	// findProviderWorker just cycles through incoming provider queries one
 	// at a time. We have six of these workers running at once
