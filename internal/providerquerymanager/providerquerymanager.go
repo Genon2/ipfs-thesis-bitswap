@@ -240,6 +240,7 @@ func (pqm *ProviderQueryManager) findProviderWorker() {
 				wg.Add(1)
 				go func(p peer.ID) {
 					defer wg.Done()
+					fmt.Printf("[%s] connecting to provider\n", k.String())
 					err := pqm.network.ConnectTo(findProviderCtx, p)
 					if err != nil {
 						log.Debugf("failed to connect to provider %s: %s", p, err)
@@ -266,8 +267,6 @@ func (pqm *ProviderQueryManager) findProviderWorker() {
 			}:
 			case <-pqm.ctx.Done():
 			}
-
-			// fmt.Printf("[%s] FOUND DHT\n", k.String())
 
 		case <-pqm.ctx.Done():
 			return
