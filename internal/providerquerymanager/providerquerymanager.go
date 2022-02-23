@@ -233,7 +233,7 @@ func (pqm *ProviderQueryManager) findProviderWorker() {
 			pqm.timeoutMutex.RUnlock()
 			providers := pqm.network.FindProvidersAsync(findProviderCtx, k, maxProviders)
 
-			fmt.Printf("Making a request to the dht for CID: %s\n", k.String())
+			fmt.Printf("[%s] Making a request to the dht for CID\n", k.String())
 
 			wg := &sync.WaitGroup{}
 			for p := range providers {
@@ -244,7 +244,7 @@ func (pqm *ProviderQueryManager) findProviderWorker() {
 					if err != nil {
 						log.Debugf("failed to connect to provider %s: %s", p, err)
 
-						fmt.Printf("failed to connect to provider \n	CID : %s	\n	Addr:%s\n", k.String(), p)
+						fmt.Printf("[%s] failed to connect to provider - Addr:%s\n", k.String(), p)
 
 						return
 					}
@@ -267,7 +267,7 @@ func (pqm *ProviderQueryManager) findProviderWorker() {
 			case <-pqm.ctx.Done():
 			}
 
-			fmt.Printf("FOUND DHT: %s\n", k.String())
+			// fmt.Printf("[%s] FOUND DHT\n", k.String())
 
 		case <-pqm.ctx.Done():
 			return
