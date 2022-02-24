@@ -414,6 +414,7 @@ type counters struct {
 // GetBlock attempts to retrieve a particular block from peers within the
 // deadline enforced by the context.
 func (bs *Bitswap) GetBlock(parent context.Context, k cid.Cid) (blocks.Block, error) {
+	fmt.Printf("CCCCCCCCCCCCCCCCCCC")
 	return bsgetter.SyncGetBlock(parent, k, bs.GetBlocks)
 }
 

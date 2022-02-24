@@ -230,6 +230,7 @@ func (s *Session) logReceiveFrom(from peer.ID, interestedKs []cid.Cid, haves []c
 
 // GetBlock fetches a single block.
 func (s *Session) GetBlock(parent context.Context, k cid.Cid) (blocks.Block, error) {
+	fmt.Printf("SSEEEEESSSSION")
 	return bsgetter.SyncGetBlock(parent, k, s.GetBlocks)
 }
 
