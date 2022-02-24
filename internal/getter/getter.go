@@ -88,6 +88,7 @@ func AsyncGetBlocks(ctx context.Context, sessctx context.Context, keys []cid.Cid
 	want(ctx, keys)
 
 	// Crée un channel de sortie et on reçoit les valeurs depuis handleIncoming
+	fmt.Println("TESTeuuuuuuuuuuuuuuuuuuuuh")
 	out := make(chan blocks.Block)
 	go handleIncoming(ctx, sessctx, remaining, promise, out, cwants)
 	return out, nil
@@ -120,7 +121,7 @@ func handleIncoming(ctx context.Context, sessctx context.Context, remaining *cid
 			if !ok {
 				return
 			}
-
+			fmt.Println("[%s] BLK", blk)
 			fmt.Println("[%s] FOUND VIA BITSWAP", blk.Cid().String())
 
 			// Reçu via Bitswap le CID
