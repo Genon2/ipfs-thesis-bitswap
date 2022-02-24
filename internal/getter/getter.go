@@ -27,7 +27,7 @@ func SyncGetBlock(p context.Context, k cid.Cid, gb GetBlocksFunc) (blocks.Block,
 		log.Error("undefined cid in GetBlock")
 		return nil, blockstore.ErrNotFound
 	}
-
+	fmt.Println("[%s] BITSWAP GETTER", k.String())
 	// Any async work initiated by this function must end when this function
 	// returns. To ensure this, derive a new context. Note that it is okay to
 	// listen on parent in this scope, but NOT okay to pass |parent| to
@@ -88,7 +88,6 @@ func AsyncGetBlocks(ctx context.Context, sessctx context.Context, keys []cid.Cid
 	want(ctx, keys)
 
 	// Crée un channel de sortie et on reçoit les valeurs depuis handleIncoming
-	fmt.Println("TESTeuuuuuuuuuuuuuuuuuuuuh")
 	out := make(chan blocks.Block)
 	go handleIncoming(ctx, sessctx, remaining, promise, out, cwants)
 	return out, nil
