@@ -101,6 +101,7 @@ func handleIncoming(ctx context.Context, sessctx context.Context, remaining *cid
 	in <-chan blocks.Block, out chan blocks.Block, cfun func([]cid.Cid)) {
 
 	ctx, cancel := context.WithCancel(ctx)
+	fmt.Println("[%s] FOUND VIA BITSWAP 42\n", blk.Cid().String())
 
 	// Clean up before exiting this function, and call the cancel function on
 	// any remaining keys
