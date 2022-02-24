@@ -434,7 +434,6 @@ func (sws *sessionWantSender) processUpdates(updates []update) []cid.Cid {
 			// If we haven't already received a block for the want
 			if !blkCids.Has(c) {
 				// Update the block presence for the peer
-				fmt.Printf("[%s] peer has the block\n", c.String())
 				sws.updateWantBlockPresence(c, upd.from)
 			}
 
@@ -635,6 +634,8 @@ func (sws *sessionWantSender) newlyExhausted(ks []cid.Cid) []cid.Cid {
 
 // removeWant is called when the corresponding block is received
 func (sws *sessionWantSender) removeWant(c cid.Cid) *wantInfo {
+	fmt.Printf("[%s] block found. Removing want...\n", c.String())
+
 	if wi, ok := sws.wants[c]; ok {
 		delete(sws.wants, c)
 		return wi
