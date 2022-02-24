@@ -563,9 +563,12 @@ func (bs *Bitswap) ReceiveMessage(ctx context.Context, p peer.ID, incoming bsmsg
 	if len(iblocks) > 0 {
 		bs.updateReceiveCounters(iblocks)
 		for _, b := range iblocks {
-			fmt.Printf("[%s] Received block, peer=%s\n", b.Cid().String(), p.String())
+			log.Debugf("[recv] block; cid=%s, peer=%s", b.Cid(), p)
 		}
+		fmt.Printf("[%s] block received1\n")
+
 	}
+	fmt.Printf("[%s] block received2\n")
 
 	haves := incoming.Haves()
 	dontHaves := incoming.DontHaves()
