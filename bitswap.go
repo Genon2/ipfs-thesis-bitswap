@@ -517,7 +517,6 @@ func (bs *Bitswap) receiveBlocksFrom(ctx context.Context, from peer.ID, blks []b
 	// (the sessions use this pubsub mechanism to inform clients of incoming
 	// blocks)
 	for _, b := range wanted {
-		fmt.Printf("[%s] block found", b.Cid().String())
 		bs.notif.Publish(b)
 	}
 
@@ -564,9 +563,7 @@ func (bs *Bitswap) ReceiveMessage(ctx context.Context, p peer.ID, incoming bsmsg
 	if len(iblocks) > 0 {
 		bs.updateReceiveCounters(iblocks)
 		for _, b := range iblocks {
-			log.Debugf("[recv] block; cid=%s, peer=%s", b.Cid(), p)
-			// fmt.Println("We have a message from Go-Bitswap:")
-			// fmt.Printf("Received CID=%s, peer=%s\n", b.Cid().String(), p.String())
+			fmt.Printf("[%s] Received block, peer=%s\n", b.Cid().String(), p.String())
 		}
 	}
 
