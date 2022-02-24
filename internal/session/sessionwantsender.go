@@ -434,6 +434,7 @@ func (sws *sessionWantSender) processUpdates(updates []update) []cid.Cid {
 			// If we haven't already received a block for the want
 			if !blkCids.Has(c) {
 				// Update the block presence for the peer
+				fmt.Printf("[%s] peer has the block\n", c.String())
 				sws.updateWantBlockPresence(c, upd.from)
 			}
 
