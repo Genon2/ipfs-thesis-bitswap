@@ -517,6 +517,7 @@ func (bs *Bitswap) receiveBlocksFrom(ctx context.Context, from peer.ID, blks []b
 	// (the sessions use this pubsub mechanism to inform clients of incoming
 	// blocks)
 	for _, b := range wanted {
+		fmt.Printf("[%s] block found", b.Cid().String())
 		bs.notif.Publish(b)
 	}
 
