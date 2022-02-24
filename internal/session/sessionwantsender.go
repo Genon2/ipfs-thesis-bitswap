@@ -634,7 +634,6 @@ func (sws *sessionWantSender) newlyExhausted(ks []cid.Cid) []cid.Cid {
 
 // removeWant is called when the corresponding block is received
 func (sws *sessionWantSender) removeWant(c cid.Cid) *wantInfo {
-	fmt.Printf("[%s] block found. Removing want...\n", c.String())
 
 	if wi, ok := sws.wants[c]; ok {
 		delete(sws.wants, c)

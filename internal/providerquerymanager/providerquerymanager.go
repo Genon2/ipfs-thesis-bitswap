@@ -249,6 +249,8 @@ func (pqm *ProviderQueryManager) findProviderWorker() {
 						fmt.Printf("[%s] failed to connect to provider - Addr:%s\n", k.String(), p)
 
 						return
+					} else {
+						fmt.Printf("[%s] found by provider - %s", k.String(), p)
 					}
 					select {
 					case pqm.providerQueryMessages <- &receivedProviderMessage{
