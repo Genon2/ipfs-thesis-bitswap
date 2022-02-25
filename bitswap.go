@@ -566,16 +566,16 @@ func (bs *Bitswap) ReceiveMessage(ctx context.Context, p peer.ID, incoming bsmsg
 		for _, b := range iblocks {
 			log.Debugf("[recv] block; cid=%s, peer=%s", b.Cid(), p)
 		}
-		fmt.Printf("[%s] block received1\n")
+		//fmt.Printf("[%s] block received1\n")
 
 	}
-	fmt.Printf("[%s] block received2\n")
+	//fmt.Printf("[%s] block received2\n")
 
 	haves := incoming.Haves()
 	dontHaves := incoming.DontHaves()
 	if len(iblocks) > 0 || len(haves) > 0 || len(dontHaves) > 0 {
 		// Process blocks
-		fmt.Printf("[%s] block received3\n")
+		//fmt.Printf("[%s] block received3\n")
 		err := bs.receiveBlocksFrom(ctx, p, iblocks, haves, dontHaves)
 		if err != nil {
 			log.Warnf("ReceiveMessage recvBlockFrom error: %s", err)
