@@ -6,7 +6,7 @@ import (
 	"fmt"
 
 	notifications "github.com/Genon2/ipfs-thesis-bitswap/internal/notifications"
-	AsyncGetBlocks	logging "github.com/ipfs/go-log"
+	logging "github.com/ipfs/go-log"
 
 	blocks "github.com/ipfs/go-block-format"
 	cid "github.com/ipfs/go-cid"
