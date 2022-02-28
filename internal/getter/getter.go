@@ -41,7 +41,7 @@ func SyncGetBlock(p context.Context, k cid.Cid, gb GetBlocksFunc) (blocks.Block,
 	if err != nil {
 		return nil, err
 	}
-
+	fmt.Printf("[%s] Promise from SyncGetBlock", promise)
 	select {
 	case block, ok := <-promise:
 		if !ok {
@@ -82,7 +82,7 @@ func AsyncGetBlocks(ctx context.Context, sessctx context.Context, keys []cid.Cid
 		log.Debugw("Bitswap.GetBlockRequest.Start", "cid", k)
 		remaining.Add(k)
 	}
-
+	fmt.Println("Pass through AsynGetBlocks from getter.go")
 	// Send the want request for the keys to the network
 	// Avertit les Node bitswap
 	want(ctx, keys)
@@ -122,7 +122,7 @@ func handleIncoming(ctx context.Context, sessctx context.Context, remaining *cid
 				return
 			}
 			fmt.Printf("[%s] BLK from handleIncoming in getter.go\n", blk)
-			fmt.Printf("[%s] FOUND VIA BITSWAP from getter handleIncoming\n", blk.Cid().String())
+			fmt.Printf("[%s] FOUND VIA BITSWAP from handleIncoming in getter.go\n", blk.Cid().String())
 
 			// Reçu via Bitswap le CID
 			// retire les CID de remaining
