@@ -234,14 +234,14 @@ func (pqm *ProviderQueryManager) findProviderWorker() {
 			pqm.timeoutMutex.RUnlock()
 			providers := pqm.network.FindProvidersAsync(findProviderCtx, k, maxProviders)
 
-			fmt.Printf("[%s] Making a request to the dht for CID\n", k.String())
+			fmt.Printf("[%s] Making a request to the dht for CID from findProviderWorker in providerquerymanager.go\n", k.String())
 
 			wg := &sync.WaitGroup{}
 			for p := range providers {
 				wg.Add(1)
 				go func(p peer.ID) {
 					defer wg.Done()
-					fmt.Printf("[%s] connecting to provider\n", k.String())
+					fmt.Printf("[%s] connecting to provider from findProviderWorker loop\n", k.String())
 					err := pqm.network.ConnectTo(findProviderCtx, p)
 					if err != nil {
 						log.Debugf("failed to connect to provider %s: %s", p, err)
@@ -250,7 +250,7 @@ func (pqm *ProviderQueryManager) findProviderWorker() {
 
 						return
 					} else {
-						fmt.Printf("[%s] found by provider - %s", k.String(), p)
+						fmt.Printf("[%s] found by provider - %s\n", k.String(), p)
 					}
 					select {
 					case pqm.providerQueryMessages <- &receivedProviderMessage{

@@ -512,7 +512,7 @@ func (sws *sessionWantSender) processExhaustedWants(exhausted []cid.Cid) {
 	newlyExhausted := sws.newlyExhausted(exhausted)
 	if len(newlyExhausted) > 0 {
 		// Appel session.go la fonction qui réalise un opBroadcast afin d'appeler AsyncProvider()
-		fmt.Printf("[%+v] All peers sent DON'T HAVE...\n", newlyExhausted)
+		fmt.Printf("[%+v] All peers sent DON'T HAVE... from processExhaustedWants in sessionwantsender.go\n", newlyExhausted)
 		sws.onPeersExhausted(newlyExhausted)
 	}
 	// PRINT ICI POUR BITSWAP si on veut signaler pas de DHT mais on n'a pas les CID

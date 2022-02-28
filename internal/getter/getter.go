@@ -27,7 +27,7 @@ func SyncGetBlock(p context.Context, k cid.Cid, gb GetBlocksFunc) (blocks.Block,
 		log.Error("undefined cid in GetBlock")
 		return nil, blockstore.ErrNotFound
 	}
-	fmt.Printf("[%s] BITSWAP GETTER", k.String())
+	fmt.Printf("[%s] BITSWAP GETTER from SyncGetBlock in getter.go\n", k.String())
 	// Any async work initiated by this function must end when this function
 	// returns. To ensure this, derive a new context. Note that it is okay to
 	// listen on parent in this scope, but NOT okay to pass |parent| to
@@ -121,8 +121,8 @@ func handleIncoming(ctx context.Context, sessctx context.Context, remaining *cid
 			if !ok {
 				return
 			}
-			fmt.Println("[%s] BLK", blk)
-			fmt.Println("[%s] FOUND VIA BITSWAP from getter handleIncoming", blk.Cid().String())
+			fmt.Printf("[%s] BLK from handleIncoming in getter.go\n", blk)
+			fmt.Printf("[%s] FOUND VIA BITSWAP from getter handleIncoming\n", blk.Cid().String())
 
 			// Reçu via Bitswap le CID
 			// retire les CID de remaining

@@ -415,7 +415,7 @@ type counters struct {
 // deadline enforced by the context.
 // Command Get doesn't pass by here
 func (bs *Bitswap) GetBlock(parent context.Context, k cid.Cid) (blocks.Block, error) {
-	fmt.Println("Bitswap GetBlock")
+	fmt.Printf("Bitswap GetBlock\n")
 	return bsgetter.SyncGetBlock(parent, k, bs.GetBlocks)
 }
 

@@ -231,7 +231,7 @@ func (s *Session) logReceiveFrom(from peer.ID, interestedKs []cid.Cid, haves []c
 // GetBlock fetches a single block.
 // Get Command Pass here
 func (s *Session) GetBlock(parent context.Context, k cid.Cid) (blocks.Block, error) {
-	fmt.Println("Session_GetBlock() function")
+	fmt.Printf("Session_GetBlock() function from GetBlock in session.go\n")
 	return bsgetter.SyncGetBlock(parent, k, s.GetBlocks)
 }
 
@@ -398,7 +398,7 @@ func (s *Session) handlePeriodicSearch(ctx context.Context) {
 // findMorePeers attempts to find more peers for a session by searching for
 // providers for the given Cid
 func (s *Session) findMorePeers(ctx context.Context, c cid.Cid) {
-	fmt.Printf("[%s] Trying to find more peers...\n", c.String())
+	fmt.Printf("[%s] Trying to find more peers... from findMorePeers in session.go\n", c.String())
 
 	go func(k cid.Cid) {
 		// Appel à la DHT
