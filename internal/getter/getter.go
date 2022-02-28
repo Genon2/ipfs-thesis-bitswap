@@ -41,7 +41,6 @@ func SyncGetBlock(p context.Context, k cid.Cid, gb GetBlocksFunc) (blocks.Block,
 	if err != nil {
 		return nil, err
 	}
-	fmt.Printf("[%s] Promise from SyncGetBlock", promise)
 	select {
 	case block, ok := <-promise:
 		if !ok {
@@ -52,6 +51,7 @@ func SyncGetBlock(p context.Context, k cid.Cid, gb GetBlocksFunc) (blocks.Block,
 				return nil, errors.New("promise channel was closed")
 			}
 		}
+		fmt.Printf("[%s] Promise from SyncGetBlock\n", block)
 		return block, nil
 	case <-p.Done():
 		return nil, p.Err()
