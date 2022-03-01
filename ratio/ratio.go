@@ -1,18 +1,5 @@
 package ratio
 
-import (
-	"context"
-	"encoding/json"
-	"fmt"
-	"io/ioutil"
-	"math"
-	"math/rand"
-	"os"
-	"strconv"
-	"sync"
-	"testing"
-	"time"
-)
 
 // Element to Get 
 // DHT & BITSWAP are initialized a true 
@@ -26,41 +13,42 @@ type Get struct {
 
 // Object that contains all the result
 type Ratio struct{
-	list []Get
+	list []*Get
 }
 
 // Add a new Get to the Ratio
-func (rt *Ratio) Add(str String){
-	g = NewGet(str)
+func (rt *Ratio) Add(str string){
+	var g = NewGet(str)
 	rt.list = append(rt.list, g)
 }
 
-func NewRatio() Ratio {
-	ratio = &Ratio{
-		list: make([]Get, nil),
+func NewRatio() *Ratio {
+	var ratio = &Ratio{
+		list: make([]*Get, 0),
 	}
 	return ratio
 }
 
 // Create a New Get element
 // Must be called in the Get Command of go-ipfs
-func NewGet(str String){
+func NewGet(str string) *Get{
 	g := &Get{
 		CID: str,
 		DHT: false,
 		BITSWAP: false,
 	}
+	return g
 }
 
-func (rt *Ratio) checkBitswap(str String){
+func (rt *Ratio) checkBitswap(str string){
 	last := rt.list[len(rt.list)-1]
 	if (str == last.CID){
-		g.BITSWAP = true
+		last.BITSWAP = true
 	}
 	return // retourne une erreur TODO
 }
 
-func (rt *Ratio) checkDHT(str String){
+func (rt *Ratio) checkDHT(str string){
 	last := rt.list[len(rt.list)-1]
 	if (str == last.CID){
 		if (last.BITSWAP){
