@@ -252,9 +252,9 @@ func (pqm *ProviderQueryManager) findProviderWorker() {
 
 						return
 					} else {
-						fmt.Printf("[%s] TRY !!!!\n", pqm.ratio)
+						//fmt.Printf("[%s] TRY !!!!\n", pqm.ratio)
 						//pqm.ratio.CheckDHT(k.String())
-						fmt.Printf("[%s] DHT TRUED !!!!\n", pqm.ratio.ToString())
+						//fmt.Printf("[%s] DHT TRUED !!!!\n", pqm.ratio.ToString())
 						fmt.Printf("[%s] found by provider - %s\n", k.String(), p)
 					}
 					select {
