@@ -29,7 +29,7 @@ func NewRatio() Ratio {
 	return *ratio
 }
 
-func (rt *Ratio) toString() string{
+func (rt *Ratio) ToString() string{
 	var last = rt.list[len(rt.list)-1]
 	var str = last.CID +" DHT : " + ConvertBool(last.DHT)+ "BITSWAP : " + ConvertBool(last.BITSWAP)
 	return str
