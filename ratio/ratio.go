@@ -22,11 +22,11 @@ func (rt *Ratio) Add(str string){
 	rt.list = append(rt.list, g)
 }
 
-func NewRatio() *Ratio {
+func NewRatio() Ratio {
 	var ratio = &Ratio{
 		list: make([]*Get, 0),
 	}
-	return ratio
+	return *ratio
 }
 
 // Create a New Get element

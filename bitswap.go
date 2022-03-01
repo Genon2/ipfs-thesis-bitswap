@@ -224,7 +224,7 @@ func New(parent context.Context, network bsnet.BitSwapNetwork,
 	pm := bspm.New(ctx, peerQueueFactory, network.Self())
 	pqm := bspqm.New(ctx, network)
 
-	newRatio = ratio.NewRatio()
+ 	ratio := ratio.NewRatio()
 
 	sessionFactory := func(
 		sessctx context.Context,
@@ -238,7 +238,7 @@ func New(parent context.Context, network bsnet.BitSwapNetwork,
 		provSearchDelay time.Duration,
 		rebroadcastDelay delay.D,
 		self peer.ID) bssm.Session {
-		return bssession.New(sessctx, sessmgr, id, spm, pqm, sim, pm, bpm, notif, provSearchDelay, rebroadcastDelay, self, newRatio)
+		return bssession.New(sessctx, sessmgr, id, spm, pqm, sim, pm, bpm, notif, provSearchDelay, rebroadcastDelay, self, ratio)
 	}
 	sessionPeerManagerFactory := func(ctx context.Context, id uint64) bssession.SessionPeerManager {
 		return bsspm.New(id, network.ConnectionManager())
@@ -250,7 +250,7 @@ func New(parent context.Context, network bsnet.BitSwapNetwork,
 		blockstore:                       bstore,
 		network:                          network,
 		process:                          px,
-		ratio:							  newRatio,
+		ratio:							  ratio,
 		newBlocks:                        make(chan cid.Cid, HasBlockBufferSize),
 		provideKeys:                      make(chan cid.Cid, provideKeysBufferSize),
 		pm:                               pm,
