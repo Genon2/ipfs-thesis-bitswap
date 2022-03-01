@@ -237,7 +237,7 @@ func (s *Session) logReceiveFrom(from peer.ID, interestedKs []cid.Cid, haves []c
 // Get Command Pass here
 func (s *Session) GetBlock(parent context.Context, k cid.Cid) (blocks.Block, error) {
 	s.ratio.Add(k.String())
-	fmt.Printf("[%s] PRINT RATIO\n", s.ratio)
+	fmt.Printf("[%s] PRINT RATIO\n", s.ratio.toString())
 	fmt.Printf("Session_GetBlock() function from GetBlock in session.go\n")
 	return bsgetter.SyncGetBlock(parent, k, s.GetBlocks)
 }

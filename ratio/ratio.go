@@ -29,6 +29,11 @@ func NewRatio() Ratio {
 	return *ratio
 }
 
+func (rt *Ratio) toString() string{
+	var last = rt.list[len(rt.list)-1]
+	var str = last.CID +" DHT : " + ConvertBool(last.DHT)+ "BITSWAP : " + ConvertBool(last.BITSWAP)
+	return str
+}
 // Create a New Get element
 // Must be called in the Get Command of go-ipfs
 func NewGet(str string) *Get{
@@ -57,4 +62,11 @@ func (rt *Ratio) checkDHT(str string){
 		last.DHT = true
 	}
 	return // retourne une erreur TODO
+}
+
+func ConvertBool(b bool) string{
+	if b {
+		return "True"
+	}
+	return "False"
 }
