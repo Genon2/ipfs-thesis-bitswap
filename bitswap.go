@@ -219,12 +219,12 @@ func New(parent context.Context, network bsnet.BitSwapNetwork,
 		return bsmq.New(ctx, p, network, onDontHaveTimeout)
 	}
 
+	ratio := ratio.NewRatio()
+
 	sim := bssim.New()
 	bpm := bsbpm.New()
 	pm := bspm.New(ctx, peerQueueFactory, network.Self())
-	pqm := bspqm.New(ctx, network)
-
- 	ratio := ratio.NewRatio()
+	pqm := bspqm.New(ctx, network, ratio)
 
 	sessionFactory := func(
 		sessctx context.Context,

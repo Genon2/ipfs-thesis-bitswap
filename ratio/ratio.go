@@ -31,7 +31,7 @@ func NewRatio() Ratio {
 
 func (rt *Ratio) ToString() string{
 	var last = rt.list[len(rt.list)-1]
-	var str = last.CID +" DHT : " + ConvertBool(last.DHT)+ "BITSWAP : " + ConvertBool(last.BITSWAP)
+	var str = last.CID +" DHT : " + ConvertBool(last.DHT)+ " BITSWAP : " + ConvertBool(last.BITSWAP)
 	return str
 }
 // Create a New Get element
@@ -45,7 +45,7 @@ func NewGet(str string) *Get{
 	return g
 }
 
-func (rt *Ratio) checkBitswap(str string){
+func (rt *Ratio) CheckBitswap(str string){
 	last := rt.list[len(rt.list)-1]
 	if (str == last.CID){
 		last.BITSWAP = true
@@ -53,7 +53,7 @@ func (rt *Ratio) checkBitswap(str string){
 	return // retourne une erreur TODO
 }
 
-func (rt *Ratio) checkDHT(str string){
+func (rt *Ratio) CheckDHT(str string){
 	last := rt.list[len(rt.list)-1]
 	if (str == last.CID){
 		if (last.BITSWAP){

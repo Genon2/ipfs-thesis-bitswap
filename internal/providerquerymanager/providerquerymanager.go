@@ -6,6 +6,7 @@ import (
 	"sync"
 	"time"
 
+	ratio "github.com/Genon2/ipfs-thesis-bitswap/ratio"
 	"github.com/ipfs/go-cid"
 	logging "github.com/ipfs/go-log"
 	peer "github.com/libp2p/go-libp2p-core/peer"
@@ -75,7 +76,7 @@ type ProviderQueryManager struct {
 	providerQueryMessages        chan providerQueryMessage
 	providerRequestsProcessing   chan *findProviderRequest
 	incomingFindProviderRequests chan *findProviderRequest
-
+	ratio   			ratio.Ratio
 	findProviderTimeout time.Duration
 	timeoutMutex        sync.RWMutex
 
@@ -85,10 +86,11 @@ type ProviderQueryManager struct {
 
 // New initializes a new ProviderQueryManager for a given context and a given
 // network provider.
-func New(ctx context.Context, network ProviderQueryNetwork) *ProviderQueryManager {
+func New(ctx context.Context, network ProviderQueryNetwork, ratio ratio.Ratio) *ProviderQueryManager {
 	return &ProviderQueryManager{
 		ctx:                          ctx,
 		network:                      network,
+		ratio:						  ratio,
 		providerQueryMessages:        make(chan providerQueryMessage, 16),
 		providerRequestsProcessing:   make(chan *findProviderRequest),
 		incomingFindProviderRequests: make(chan *findProviderRequest),
@@ -250,6 +252,8 @@ func (pqm *ProviderQueryManager) findProviderWorker() {
 
 						return
 					} else {
+						pqm.ratio.CheckDHT(k.String())
+						fmt.Printf("[%s] DHT TRUED !!!!\n", pqm.ratio.ToString())
 						fmt.Printf("[%s] found by provider - %s\n", k.String(), p)
 					}
 					select {
