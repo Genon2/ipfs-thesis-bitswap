@@ -1,3 +1,5 @@
+package ratio
+
 import (
 	"context"
 	"encoding/json"
@@ -24,7 +26,7 @@ type Get struct {
 
 // Object that contains all the result
 type Ratio struct{
-	var list []Get
+	list []Get
 }
 
 // Add a new Get to the Ratio
@@ -35,7 +37,7 @@ func (rt *Ratio) Add(str String){
 
 func NewRatio() Ratio {
 	ratio = &Ratio{
-		list := make([]Get, nil)
+		list: make([]Get, nil),
 	}
 	return ratio
 }
