@@ -134,7 +134,7 @@ type Session struct {
 
 	self peer.ID
 
-	ratio Ratio
+	ratio ratio.Ratio
 }
 
 // New creates a new bitswap session whose lifetime is bounded by the
@@ -152,7 +152,7 @@ func New(
 	initialSearchDelay time.Duration,
 	periodicSearchDelay delay.D,
 	self peer.ID,
-	ratio Ratio) *Session {
+	ratio ratio.Ratio) *Session {
 
 	ctx, cancel := context.WithCancel(ctx)
 	s := &Session{
@@ -174,7 +174,7 @@ func New(
 		initialSearchDelay:  initialSearchDelay,
 		periodicSearchDelay: periodicSearchDelay,
 		self:                self,
-		rato:				 ratio,
+		ratio:				 ratio,
 	}
 	s.sws = newSessionWantSender(id, pm, sprm, sm, bpm, s.onWantsSent, s.onPeersExhausted)
 
