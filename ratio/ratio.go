@@ -33,32 +33,38 @@ func (rt *Ratio) Add(str String){
 	rt.list = append(rt.list, g)
 }
 
+func NewRatio() Ratio {
+	ratio = &Ratio{
+		list := make([]Get, nil)
+	}
+	return ratio
+}
+
 // Create a New Get element
 // Must be called in the Get Command of go-ipfs
 func NewGet(str String){
-	g := Get{
+	g := &Get{
 		CID: str,
 		DHT: false,
 		BITSWAP: false,
 	}
 }
 
-func (g *Get) checkBitswap(str String){
-	if (str == g.CID){
-		if (g.DHT){
-			return // retourne une erreur TODO
-		}
+func (rt *Ratio) checkBitswap(str String){
+	last := rt.list[len(rt.list)-1]
+	if (str == last.CID){
 		g.BITSWAP = true
 	}
 	return // retourne une erreur TODO
 }
 
-func (g *Get) checkDHT(str String){
-	if (str == g.CID){
-		if (g.BITSWAP){
+func (rt *Ratio) checkDHT(str String){
+	last := rt.list[len(rt.list)-1]
+	if (str == last.CID){
+		if (last.BITSWAP){
 			return // retourne une erreur TODO
 		}
-		g.DHT = true
+		last.DHT = true
 	}
 	return // retourne une erreur TODO
 }

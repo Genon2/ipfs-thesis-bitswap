@@ -36,6 +36,8 @@ import (
 	process "github.com/jbenet/goprocess"
 	procctx "github.com/jbenet/goprocess/context"
 	"github.com/libp2p/go-libp2p-core/peer"
+
+	ratio "github.com/Genon2/ipfs-thesis-bitswap/ratio"
 )
 
 var log = logging.Logger("bitswap")
@@ -222,6 +224,8 @@ func New(parent context.Context, network bsnet.BitSwapNetwork,
 	pm := bspm.New(ctx, peerQueueFactory, network.Self())
 	pqm := bspqm.New(ctx, network)
 
+	newRatio = ratio.NewRatio()
+
 	sessionFactory := func(
 		sessctx context.Context,
 		sessmgr bssession.SessionManager,
@@ -234,18 +238,19 @@ func New(parent context.Context, network bsnet.BitSwapNetwork,
 		provSearchDelay time.Duration,
 		rebroadcastDelay delay.D,
 		self peer.ID) bssm.Session {
-		return bssession.New(sessctx, sessmgr, id, spm, pqm, sim, pm, bpm, notif, provSearchDelay, rebroadcastDelay, self)
+		return bssession.New(sessctx, sessmgr, id, spm, pqm, sim, pm, bpm, notif, provSearchDelay, rebroadcastDelay, self, newRatio)
 	}
 	sessionPeerManagerFactory := func(ctx context.Context, id uint64) bssession.SessionPeerManager {
 		return bsspm.New(id, network.ConnectionManager())
 	}
 	notif := notifications.New()
 	sm = bssm.New(ctx, sessionFactory, sim, sessionPeerManagerFactory, bpm, pm, notif, network.Self())
-
+	
 	bs = &Bitswap{
 		blockstore:                       bstore,
 		network:                          network,
 		process:                          px,
+		ratio:							  newRatio,
 		newBlocks:                        make(chan cid.Cid, HasBlockBufferSize),
 		provideKeys:                      make(chan cid.Cid, provideKeysBufferSize),
 		pm:                               pm,
@@ -333,6 +338,9 @@ type Bitswap struct {
 
 	// manages channels of outgoing blocks for sessions
 	notif notifications.PubSub
+
+	// Make the ratio
+	ratio ratio.Ratio
 
 	// newBlocks is a channel for newly added blocks to be provided to the
 	// network.  blocks pushed down this channel get buffered and fed to the

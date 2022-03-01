@@ -5,6 +5,7 @@ import (
 	"fmt"
 	"time"
 
+	ratio "github.com/Genon2/ipfs-thesis-bitswap/ratio"
 	bsbpm "github.com/Genon2/ipfs-thesis-bitswap/internal/blockpresencemanager"
 	bsgetter "github.com/Genon2/ipfs-thesis-bitswap/internal/getter"
 	notifications "github.com/Genon2/ipfs-thesis-bitswap/internal/notifications"
@@ -132,6 +133,8 @@ type Session struct {
 	id    uint64
 
 	self peer.ID
+
+	ratio Ratio
 }
 
 // New creates a new bitswap session whose lifetime is bounded by the
@@ -148,7 +151,8 @@ func New(
 	notif notifications.PubSub,
 	initialSearchDelay time.Duration,
 	periodicSearchDelay delay.D,
-	self peer.ID) *Session {
+	self peer.ID,
+	ratio Ratio) *Session {
 
 	ctx, cancel := context.WithCancel(ctx)
 	s := &Session{
@@ -170,6 +174,7 @@ func New(
 		initialSearchDelay:  initialSearchDelay,
 		periodicSearchDelay: periodicSearchDelay,
 		self:                self,
+		rato:				 ratio,
 	}
 	s.sws = newSessionWantSender(id, pm, sprm, sm, bpm, s.onWantsSent, s.onPeersExhausted)
 
@@ -231,6 +236,8 @@ func (s *Session) logReceiveFrom(from peer.ID, interestedKs []cid.Cid, haves []c
 // GetBlock fetches a single block.
 // Get Command Pass here
 func (s *Session) GetBlock(parent context.Context, k cid.Cid) (blocks.Block, error) {
+	s.ratio.Add(k.String())
+	fmt.Printf("[%s] PRINT RATIO\n", s.ratio)
 	fmt.Printf("Session_GetBlock() function from GetBlock in session.go\n")
 	return bsgetter.SyncGetBlock(parent, k, s.GetBlocks)
 }
