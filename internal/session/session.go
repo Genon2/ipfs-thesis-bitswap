@@ -239,7 +239,6 @@ func (s *Session) GetBlock(parent context.Context, k cid.Cid) (blocks.Block, err
 	s.ratio.Add(k.String())
 	fmt.Printf("[%s] PRINT Ratio\n", s.ratio.ToString())
 	fmt.Printf("Session_GetBlock() function from GetBlock in session.go\n")
-	ratio.single.getInstance()
 	return bsgetter.SyncGetBlock(parent, k, s.GetBlocks)
 }
 
