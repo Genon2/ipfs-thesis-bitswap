@@ -5,12 +5,12 @@ import (
 	"fmt"
 	"time"
 
-	ratio "github.com/Genon2/ipfs-thesis-bitswap/ratio"
 	bsbpm "github.com/Genon2/ipfs-thesis-bitswap/internal/blockpresencemanager"
 	bsgetter "github.com/Genon2/ipfs-thesis-bitswap/internal/getter"
 	notifications "github.com/Genon2/ipfs-thesis-bitswap/internal/notifications"
 	bspm "github.com/Genon2/ipfs-thesis-bitswap/internal/peermanager"
 	bssim "github.com/Genon2/ipfs-thesis-bitswap/internal/sessioninterestmanager"
+	ratio "github.com/Genon2/ipfs-thesis-bitswap/ratio"
 	blocks "github.com/ipfs/go-block-format"
 	cid "github.com/ipfs/go-cid"
 	delay "github.com/ipfs/go-ipfs-delay"
@@ -174,7 +174,7 @@ func New(
 		initialSearchDelay:  initialSearchDelay,
 		periodicSearchDelay: periodicSearchDelay,
 		self:                self,
-		ratio:				 ratio,
+		ratio:               ratio,
 	}
 	s.sws = newSessionWantSender(id, pm, sprm, sm, bpm, s.onWantsSent, s.onPeersExhausted)
 
@@ -237,15 +237,16 @@ func (s *Session) logReceiveFrom(from peer.ID, interestedKs []cid.Cid, haves []c
 // Get Command Pass here
 func (s *Session) GetBlock(parent context.Context, k cid.Cid) (blocks.Block, error) {
 	s.ratio.Add(k.String())
-	fmt.Printf("[%s] PRINT RATIO\n", s.ratio.ToString())
+	fmt.Printf("[%s] PRINT Ratio\n", s.ratio.ToString())
 	fmt.Printf("Session_GetBlock() function from GetBlock in session.go\n")
+	ratio.single.getInstance()
 	return bsgetter.SyncGetBlock(parent, k, s.GetBlocks)
 }
 
 // GetBlocks fetches a set of blocks within the context of this session and
 // returns a channel that found blocks will be returned on. No order is
 // guaranteed on the returned blocks.
-// 
+//
 // Appeler depuis bitswap.go fct : GetBlocks
 // Lance le AsyncGetBlocks de internal/getter/getter.go
 func (s *Session) GetBlocks(ctx context.Context, keys []cid.Cid) (<-chan blocks.Block, error) {
