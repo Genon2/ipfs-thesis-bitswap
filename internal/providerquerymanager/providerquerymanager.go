@@ -237,7 +237,7 @@ func (pqm *ProviderQueryManager) findProviderWorker() {
 			providers := pqm.network.FindProvidersAsync(findProviderCtx, k, maxProviders)
 
 			fmt.Printf("[%s] Making a request to the dht for CID from findProviderWorker in providerquerymanager.go\n", k.String())
-			fmt.Printf("[%s] TRY !!!!\n", pqm.ratio)
+			fmt.Printf("[%s] TRY !!!!\n", pqm.ratio) // On ne get RIEN
 			wg := &sync.WaitGroup{}
 			for p := range providers {
 				wg.Add(1)
